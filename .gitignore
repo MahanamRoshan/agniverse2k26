@@ -1,0 +1,7 @@
+# Exclude huge files
+index_fixed.html
+*.txt
+*.docx
+*.pdf
+# Exclude Python cache
+__pycache__/
