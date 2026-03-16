@@ -1,3 +1,2 @@
 [build]
-  command = "python3 embed_images.py"
   publish = "."
