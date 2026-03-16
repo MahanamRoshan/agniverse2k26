@@ -1905,10 +1905,92 @@
             z-index: 2;
         }
 
+        .evt-item.open .evt-body {
+            max-height: 600px;
+            opacity: 1;
+            padding: 0 30px 30px 30px;
+        }
+
         .evt-item:hover .evt-body {
             max-height: 300px;
             opacity: 1;
             padding: 0 30px 30px 30px;
+        }
+
+        .evt-item.open:hover .evt-body {
+            max-height: 600px;
+        }
+
+        .evt-rules {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 100, 0, 0.2);
+        }
+
+        .evt-rules-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--fire-amber);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .evt-rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .evt-rules-list li {
+            font-size: 0.8rem;
+            color: rgba(255, 180, 120, 0.7);
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .evt-rules-list li::before {
+            content: '🔥';
+            position: absolute;
+            left: 0;
+            font-size: 0.6rem;
+            top: 2px;
+        }
+
+        .evt-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255, 100, 0, 0.15);
+            border: 1px solid rgba(255, 100, 0, 0.3);
+            border-radius: 20px;
+            color: var(--fire-amber);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: none;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .evt-toggle-btn:hover {
+            background: rgba(255, 100, 0, 0.3);
+            border-color: var(--fire-orange);
+            color: #fff;
+        }
+
+        .evt-toggle-btn .chevron {
+            transition: transform 0.3s;
+            font-size: 0.7rem;
+        }
+
+        .evt-item.open .evt-toggle-btn .chevron {
+            transform: rotate(180deg);
         }
 
         .evt-desc {
@@ -4020,7 +4102,6 @@
             <a href="#events">Events</a>
             <a href="#schedule">Schedule</a>
             <a href="#gallery">Gallery</a>
-            <a href="#rulebook">Rulebook</a>
             <a href="#about">About</a>
             <a href="#committee">Contact</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
@@ -4036,7 +4117,6 @@
         <a href="#events" onclick="toggleNav()">Events</a>
         <a href="#schedule" onclick="toggleNav()">Schedule</a>
         <a href="#gallery" onclick="toggleNav()">Gallery</a>
-        <a href="#rulebook" onclick="toggleNav()">Rulebook</a>
         <a href="#about" onclick="toggleNav()">About</a>
         <a href="#committee" onclick="toggleNav()">Contact</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
@@ -4234,7 +4314,7 @@
 
                     <!-- Event 1: Solo Singing -->
                     <div class="evt-item theme-a reveal">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4256,6 +4336,19 @@
                         <div class="evt-body">
                             <div class="evt-desc">Command the silence with your voice. Whether classical, pop, or rock,
                                 show off your vocal prowess and own the spotlight.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Performance duration: 2–3 minutes only.</li>
+                                    <li>Submit karaoke/music track before the deadline.</li>
+                                    <li>Bring your own instruments; none provided.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                    <li>Songs should be within cultural decorum.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4285,6 +4378,19 @@
                         <div class="evt-body">
                             <div class="evt-desc">Harmonize and perform with your choir/band. Let your voices blend to
                                 create a symphony that echoes across the campus.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Maximum 6 participants per team.</li>
+                                    <li>Duration not to exceed 5 minutes.</li>
+                                    <li>Submit karaoke/music track before the deadline.</li>
+                                    <li>Bring your own instruments; none provided.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4292,7 +4398,7 @@
 
                     <!-- Event 3: Solo Dance -->
                     <div class="evt-item theme-c reveal" style="transition-delay:0.2s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4313,6 +4419,19 @@
                         <div class="evt-body">
                             <div class="evt-desc">The stage is all yours. Bring your unique style, perfect execution,
                                 and raw passion to captivate the audience alone.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Duration not to exceed 4 minutes.</li>
+                                    <li>Submit song track before the deadline.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                    <li>Maintain proper stage decorum.</li>
+                                    <li>Judges' decision is final.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4320,7 +4439,7 @@
 
                     <!-- Event 4: Group Dance -->
                     <div class="evt-item theme-a reveal" style="transition-delay:0.3s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4343,6 +4462,19 @@
                         <div class="evt-body">
                             <div class="evt-desc">Synchronized energy and explosive choreography. Gather your team and
                                 set the stage on fire with your best moves.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Maximum 6 participants per team.</li>
+                                    <li>Duration not to exceed 4 minutes.</li>
+                                    <li>Submit song track before the deadline.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                    <li>Cultural decorum is mandatory.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4350,7 +4482,7 @@
 
                     <!-- Event 5: Beatbox (individual) -->
                     <div class="evt-item theme-b reveal" style="transition-delay:0.1s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4372,6 +4504,18 @@
                         <div class="evt-body">
                             <div class="evt-desc">Become the instrument. Drop the sickest beats and complex rhythms
                                 using nothing but your vocal cords.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Duration: 2–3 minutes only.</li>
+                                    <li>No pre-recorded audio allowed.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                    <li>Vulgar content is strictly prohibited.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4379,7 +4523,7 @@
 
                     <!-- Event 6: Beatbox (double) -->
                     <div class="evt-item theme-c reveal" style="transition-delay:0.2s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4400,6 +4544,18 @@
                         <div class="evt-body">
                             <div class="evt-desc">Double the rhythm, double the impact. Layer your beats with a partner
                                 to create an intense, mind-blowing vocal track.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Exactly 2 participants per team.</li>
+                                    <li>Duration not to exceed 3 minutes.</li>
+                                    <li>No external music or backing tracks.</li>
+                                    <li>Report 15 minutes before the event.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4407,7 +4563,7 @@
 
                     <!-- Event 7: Special talent -->
                     <div class="evt-item theme-a reveal" style="transition-delay:0.3s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4428,6 +4584,19 @@
                         <div class="evt-body">
                             <div class="evt-desc">Got a unique trick, extraordinary skill, or jaw-dropping talent? This
                                 is your wild-card entry to amaze the crowd.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Duration not to exceed 5 minutes.</li>
+                                    <li>Individual or team entries allowed.</li>
+                                    <li>Any talent (magic, mimicry, etc.) allowed.</li>
+                                    <li>Bring your own props and materials.</li>
+                                    <li>Submit details before the deadline.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4435,7 +4604,7 @@
 
                     <!-- Event 8: Adaptune -->
                     <div class="evt-item theme-b reveal" style="transition-delay:0.1s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4457,20 +4626,29 @@
                         <div class="evt-body">
                             <div class="evt-desc">Adapt to the rhythm on the fly. Show your versatility and
                                 improvisational skills as the music changes unexpectedly.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Duration: 2–3 minutes per performance.</li>
+                                    <li>Music will be played randomly.</li>
+                                    <li>Adapt and perform to the changing tunes.</li>
+                                    <li>Judges' decision is final.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
                     </div>
 
                 </div>
-            </div>
-
-            <!-- ONLINE EVENTS PANE -->
             <div id="pane-online" class="events-pane">
                 <div class="events-accordion">
                     <!-- Online Event 1 -->
                     <div class="evt-item theme-a reveal">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4498,6 +4676,18 @@
                         <div class="evt-body">
                             <div class="evt-desc">Tell a compelling story through the lens. Submit your creative short
                                 films for a chance to win and showcase your cinematic vision to a broad audience.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Duration: 3–5 minutes only.</li>
+                                    <li>Submit before the deadline via Google Form.</li>
+                                    <li>Original content only; no plagiarism.</li>
+                                    <li>Theme will be announced on the event day.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4505,7 +4695,7 @@
 
                     <!-- Online Event 2 -->
                     <div class="evt-item theme-b reveal" style="transition-delay:0.1s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4528,6 +4718,17 @@
                         <div class="evt-body">
                             <div class="evt-desc">Bring on the laughs! Create hilarious and original memes that capture
                                 the college spirit and internet culture.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Submit before the deadline via Google Form.</li>
+                                    <li>Original content only; no offensive material.</li>
+                                    <li>Theme will be announced on the event day.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4535,7 +4736,7 @@
 
                     <!-- Online Event 3 -->
                     <div class="evt-item theme-c reveal" style="transition-delay:0.2s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4559,6 +4760,18 @@
                         <div class="evt-body">
                             <div class="evt-desc">Test your strategic thinking and outwit opponents in this ultimate
                                 online chess battle. Register to secure your spot in the bracket.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Standard FIDE rules apply.</li>
+                                    <li>Blitz format: 5 minutes per player.</li>
+                                    <li>Registration mandatory before tournament.</li>
+                                    <li>Link will be shared after registration.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4566,7 +4779,7 @@
 
                     <!-- Online Event 4 -->
                     <div class="evt-item theme-a reveal" style="transition-delay:0.3s;">
-                        <div class="evt-header">
+                        <div class="evt-header" onclick="toggleEvent(this)">
                             <div class="evt-main-info">
                                 <div class="evt-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4588,6 +4801,18 @@
                         <div class="evt-body">
                             <div class="evt-desc">Capture the hidden beauty of the world. Submit your most breathtaking
                                 photographs that tell a story and frame the moment perfectly.</div>
+                            <button class="evt-toggle-btn" onclick="toggleEventRules(this)">
+                                View Rules <span class="chevron">▼</span>
+                            </button>
+                            <div class="evt-rules" style="display:none;">
+                                <div class="evt-rules-title">Rules & Guidelines</div>
+                                <ul class="evt-rules-list">
+                                    <li>Submit original photographs only.</li>
+                                    <li>Basic editing allowed; no heavy manipulation.</li>
+                                    <li>Theme will be announced on the event day.</li>
+                                    <li>Submit before the deadline via Google Form.</li>
+                                </ul>
+                            </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
                                 target="_blank" class="evt-reg-btn">Register on Google Forms →</a>
                         </div>
@@ -4619,35 +4844,79 @@
                 <!-- SINGLE DAY SCHEDULE -->
                 <div class="day-tl active" id="d1">
                     <div class="tl-item">
-                        <div class="tl-time">09:00</div>
+                        <div class="tl-time">10:00</div>
                         <div class="tl-line">
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Grand Inauguration Ceremony</div>
-                            <div class="tl-venue">📍 Main Auditorium · All attendees</div>
+                            <div class="tl-name">Tamil Thai Vaazhthu</div>
+                            <div class="tl-venue">📍 Main Auditorium · Inauguration</div>
                         </div>
-                        <div class="tl-badge badge-main">Main Event</div>
+                        <div class="tl-badge badge-main">Ceremony</div>
                     </div>
                     <div class="tl-item">
-                        <div class="tl-time">10:30</div>
+                        <div class="tl-time">10:07</div>
                         <div class="tl-line">
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Canvas Wars — Art Competition</div>
-                            <div class="tl-venue">📍 Art Block, Room 201</div>
+                            <div class="tl-name">Welcome Dance & EMCEE Note</div>
+                            <div class="tl-venue">📍 Main Auditorium · Inauguration</div>
+                        </div>
+                        <div class="tl-badge badge-main">Ceremony</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">10:15</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Welcome Address by HOD & Lighting Ceremony</div>
+                            <div class="tl-venue">📍 Main Auditorium · Inauguration</div>
+                        </div>
+                        <div class="tl-badge badge-main">Ceremony</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">10:23</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Presidential Address by Principal</div>
+                            <div class="tl-venue">📍 Main Auditorium · Inauguration</div>
+                        </div>
+                        <div class="tl-badge badge-main">Ceremony</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">10:33</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Chief Guest Address & Felicitation</div>
+                            <div class="tl-venue">📍 Main Auditorium · Inauguration</div>
+                        </div>
+                        <div class="tl-badge badge-main">Ceremony</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">10:45</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Solo Singing Competition Begins</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
                         </div>
                         <div class="tl-badge badge-comp">Competition</div>
                     </div>
                     <div class="tl-item">
-                        <div class="tl-time">11:30</div>
+                        <div class="tl-time">11:10</div>
                         <div class="tl-line">
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Mic Drop — Open Slam & Poetry</div>
-                            <div class="tl-venue">📍 Amphitheatre</div>
+                            <div class="tl-name">Celebrity Walk-ins & Solo Singing</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
                         </div>
                         <div class="tl-badge badge-comp">Competition</div>
                     </div>
@@ -4657,8 +4926,30 @@
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Battle of Bands</div>
-                            <div class="tl-venue">📍 Open Court Stage</div>
+                            <div class="tl-name">Special Talent Showcase</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
+                        </div>
+                        <div class="tl-badge badge-comp">Competition</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">13:25</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">LUNCH BREAK</div>
+                            <div class="tl-venue">📍 Food Court · All attendees</div>
+                        </div>
+                        <div class="tl-badge badge-main">Break</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">13:55</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Special Talent & Solo Dance Begins</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
                         </div>
                         <div class="tl-badge badge-comp">Competition</div>
                     </div>
@@ -4668,21 +4959,43 @@
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Nritya Agni — Dance Competition</div>
+                            <div class="tl-name">Celebrity Walk-ins & Solo Dance</div>
                             <div class="tl-venue">📍 Main Auditorium</div>
                         </div>
                         <div class="tl-badge badge-comp">Competition</div>
                     </div>
                     <div class="tl-item">
-                        <div class="tl-time">17:00</div>
+                        <div class="tl-time">16:55</div>
                         <div class="tl-line">
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Rangmanch — Theatre Finals</div>
-                            <div class="tl-venue">📍 Seminar Hall</div>
+                            <div class="tl-name">Group Dance Competition</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
                         </div>
                         <div class="tl-badge badge-comp">Competition</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">17:40</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Group Singing Competition</div>
+                            <div class="tl-venue">📍 Main Auditorium</div>
+                        </div>
+                        <div class="tl-badge badge-comp">Competition</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-time">18:02</div>
+                        <div class="tl-line">
+                            <div class="tl-dot-el"></div>
+                        </div>
+                        <div class="tl-card">
+                            <div class="tl-name">Prize Distribution for Winners</div>
+                            <div class="tl-venue">📍 Main Auditorium · Valedictory</div>
+                        </div>
+                        <div class="tl-badge badge-main">Ceremony</div>
                     </div>
                     <div class="tl-item">
                         <div class="tl-time">18:30</div>
@@ -4690,19 +5003,19 @@
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Awards & Prize Distribution</div>
-                            <div class="tl-venue">📍 Main Auditorium</div>
+                            <div class="tl-name">Vote of Thanks & National Anthem</div>
+                            <div class="tl-venue">📍 Main Auditorium · Valedictory</div>
                         </div>
                         <div class="tl-badge badge-main">Ceremony</div>
                     </div>
                     <div class="tl-item">
-                        <div class="tl-time">20:00</div>
+                        <div class="tl-time">18:40</div>
                         <div class="tl-line">
                             <div class="tl-dot-el"></div>
                         </div>
                         <div class="tl-card">
-                            <div class="tl-name">Grand Finale — DJ Set & Celebration</div>
-                            <div class="tl-venue">📍 Main Stage</div>
+                            <div class="tl-name">VIBE - Celebration & DJ Set</div>
+                            <div class="tl-venue">📍 Main Stage · Grand Finale</div>
                         </div>
                         <div class="tl-badge badge-final">Finale</div>
                     </div>
@@ -4712,272 +5025,6 @@
     </section>
 
     <div class="fire-divider"></div>
-
-    <!-- ════════════════════════════════════════
-     RULEBOOK
-════════════════════════════════════════ -->
-    <section id="rulebook">
-        <div class="container section-pad">
-            <div class="sec-head reveal">
-                <div class="sec-label">Guidelines</div>
-                <h2 class="sec-title">Event <span>Rules</span></h2>
-                <div class="sec-line"></div>
-            </div>
-
-            <div class="rules-tabs-wrap reveal">
-                <button class="stab active" onclick="switchRuleTab('offline', this)">Offline Events</button>
-                <button class="stab" onclick="switchRuleTab('online', this)">Online Events</button>
-            </div>
-
-            <!-- OFFLINE RULES -->
-            <div id="pane-offline-rules" class="rules-pane active reveal">
-                <!-- Solo Singing -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🎤</span>
-                            <span class="rule-name">Solo Singing</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Performance duration: 2–3 minutes only.</li>
-                            <li>Submit karaoke/music track before the deadline.</li>
-                            <li>Bring your own instruments; none provided.</li>
-                            <li>Report 15 minutes before the event.</li>
-                            <li>Songs should be within cultural decorum.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Group Singing -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🎶</span>
-                            <span class="rule-name">Group Singing</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Maximum 6 participants per team.</li>
-                            <li>Duration not to exceed 5 minutes.</li>
-                            <li>Submit karaoke/music track before the deadline.</li>
-                            <li>Bring your own instruments; none provided.</li>
-                            <li>Report 15 minutes before the event.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Solo Dance -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">💃</span>
-                            <span class="rule-name">Solo Dance</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Duration not to exceed 4 minutes.</li>
-                            <li>Submit song track before the deadline.</li>
-                            <li>Report 15 minutes before the event.</li>
-                            <li>Maintain proper stage decorum.</li>
-                            <li>Judges' decision is final.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Group Dance -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">👯</span>
-                            <span class="rule-name">Group Dance</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Maximum 6 participants per team.</li>
-                            <li>Duration not to exceed 4 minutes.</li>
-                            <li>Submit song track before the deadline.</li>
-                            <li>Report 15 minutes before the event.</li>
-                            <li>Cultural decorum is mandatory.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Beatbox (Individual) -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🔊</span>
-                            <span class="rule-name">Beatbox (Individual)</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Duration: 2–3 minutes only.</li>
-                            <li>No pre-recorded audio allowed.</li>
-                            <li>Report 15 minutes before the event.</li>
-                            <li>Vulgar content is strictly prohibited.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Beatbox (Double) -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🎙️</span>
-                            <span class="rule-name">Beatbox (Double)</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Exactly 2 participants per team.</li>
-                            <li>Duration not to exceed 3 minutes.</li>
-                            <li>No external music or backing tracks.</li>
-                            <li>Report 15 minutes before the event.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Special Talent -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">✨</span>
-                            <span class="rule-name">Special Talent</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Duration not to exceed 5 minutes.</li>
-                            <li>Individual or team entries allowed.</li>
-                            <li>Any talent (magic, mimicry, etc.) allowed.</li>
-                            <li>Bring your own props and materials.</li>
-                            <li>Submit details before the deadline.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Adaptune -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🎵</span>
-                            <span class="rule-name">Adaptune</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Duration: 3–4 minutes only.</li>
-                            <li>Solo or team (Max 4) members.</li>
-                            <li>Adapt creatively to the given theme/tune.</li>
-                            <li>Report 15 minutes before the event.</li>
-                            <li>Arrange your own props if needed.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ONLINE RULES -->
-            <div id="pane-online-rules" class="rules-pane reveal">
-                <!-- Short Film -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🎬</span>
-                            <span class="rule-name">Short Film</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Duration: 3–7 minutes.</li>
-                            <li>Film must be original and unpublished.</li>
-                            <li>Subtitles are recommended for any language.</li>
-                            <li>No offensive or copyrighted material.</li>
-                            <li>Submit before the specified deadline.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Meme Creation -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">🤡</span>
-                            <span class="rule-name">Meme Creation</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Memes must be original creations.</li>
-                            <li>No offensive, political, or abusive content.</li>
-                            <li>Maximum 3 memes per participant.</li>
-                            <li>Submit in image format.</li>
-                            <li>Judged on creativity and relevance.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Chess Game -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">♟️</span>
-                            <span class="rule-name">Chess Game</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Conducted online via chess.com platform.</li>
-                            <li>Must join the match at the scheduled time.</li>
-                            <li>Cheating leads to instant disqualification.</li>
-                            <li>Format announced before the event.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Photography -->
-                <div class="rule-card">
-                    <div class="rule-header" onclick="toggleRule(this)">
-                        <div class="rule-title-wrap">
-                            <span class="rule-icon">📷</span>
-                            <span class="rule-name">Photography</span>
-                        </div>
-                        <span class="rule-chevron">▾</span>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>Photos must be original and by the participant.</li>
-                            <li>No AI-generated images permitted.</li>
-                            <li>Maximum 2 photographs per participant.</li>
-                            <li>Follow the given theme.</li>
-                            <li>Judged on composition and creativity.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rulebook-footer reveal">
-                <p>Need a offline copy? <a href="Agniverse-Rulebook.pdf" target="_blank">Download Brochure PDF</a></p>
-            </div>
-        </div>
-    </section>
-
 
     <!-- ════════════════════════════════════════
      GALLERY
@@ -5254,14 +5301,22 @@
                     </div>
                 </div>
                 <div class="reveal" style="transition-delay:0.1s;">
-                    <div class="footer-col-title">Events</div>
+                    <div class="footer-col-title">Offline Events</div>
                     <div class="footer-links">
-                        <a href="#register">Battle of Bands</a>
-                        <a href="#register">Nritya Agni</a>
-                        <a href="#register">Rangmanch</a>
-                        <a href="#register">Canvas Wars</a>
-                        <a href="#register">Mic Drop</a>
-                        <a href="#register">Shutterflame</a>
+                        <a href="#events">Solo Singing</a>
+                        <a href="#events">Group Singing</a>
+                        <a href="#events">Solo Dance</a>
+                        <a href="#events">Group Dance</a>
+                        <a href="#events">Special Talent</a>
+                        <a href="#events">Beatbox</a>
+                        <a href="#events">Adaptune</a>
+                    </div>
+                    <div class="footer-col-title" style="margin-top: 20px;">Online Events</div>
+                    <div class="footer-links">
+                        <a href="#events">Short Film</a>
+                        <a href="#events">Photography</a>
+                        <a href="#events">Meme Creation</a>
+                        <a href="#events">Chess Game</a>
                     </div>
                 </div>
                 <div class="reveal" style="transition-delay:0.2s;">
@@ -5572,6 +5627,26 @@
             const wasOpen = item.classList.contains('open');
             document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
             if (!wasOpen) item.classList.add('open');
+        }
+
+        /* ── EVENT RULES TOGGLE ── */
+        function toggleEventRules(btn) {
+            const evtBody = btn.closest('.evt-body');
+            const rulesDiv = evtBody.querySelector('.evt-rules');
+            const chevron = btn.querySelector('.chevron');
+            
+            if (rulesDiv.style.display === 'none') {
+                rulesDiv.style.display = 'block';
+                btn.innerHTML = 'Hide Rules <span class="chevron">▲</span>';
+            } else {
+                rulesDiv.style.display = 'none';
+                btn.innerHTML = 'View Rules <span class="chevron">▼</span>';
+            }
+        }
+
+        function toggleEvent(header) {
+            const evtItem = header.closest('.evt-item');
+            evtItem.classList.toggle('open');
         }
 
         /* ── REGISTER ── */
