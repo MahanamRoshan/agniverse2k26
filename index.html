@@ -119,6 +119,23 @@
             will-change: transform;
         }
 
+        /* Disable custom cursor on mobile/touch devices */
+        @media (max-width: 768px), (pointer: coarse) {
+            html,
+            body,
+            body *,
+            button,
+            a {
+                cursor: auto !important;
+            }
+
+            #cur-dot,
+            #cur-ring,
+            #cur-glow {
+                display: none !important;
+            }
+        }
+
         /* Hover States for Interactive Elements */
         body:has(a:hover) #cur-dot,
         body:has(button:hover) #cur-dot,
@@ -850,6 +867,21 @@
             margin: 10px 0 20px;
             opacity: 0;
             animation: heroIn 1s 0.4s ease forwards;
+        }
+
+        .hero-eligibility {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(0.78rem, 1.8vw, 0.95rem);
+            letter-spacing: 1.2px;
+            color: rgba(255, 220, 180, 0.82);
+            margin: 0 0 16px;
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 140, 0, 0.25);
+            background: rgba(20, 8, 0, 0.45);
+            border-radius: 999px;
+            text-align: center;
+            opacity: 0;
+            animation: heroIn 1s 0.5s ease forwards;
         }
 
         .hero-pills {
@@ -2435,234 +2467,205 @@
         }
 
         /* ═══════════════════════════════════════════
-   REGISTER
+   DRIVEN BY SOCIAL GOOD
 ═══════════════════════════════════════════ */
-        #register {
+        #social-good-section {
             padding: 100px 0;
-            background: radial-gradient(ellipse at 50% 100%, rgba(255, 50, 0, 0.08) 0%, transparent 60%);
+            background: var(--black);
+            color: #fff;
         }
 
-        .reg-wrap {
+        #social-good-section .social-good-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            gap: 70px;
+            align-items: start;
         }
 
-        .reg-info h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--fire-amber);
-            letter-spacing: 3px;
+        #social-good-section .sg-label {
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            color: var(--fire-orange);
             text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .reg-info h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.2;
+            font-weight: 600;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .reg-info h2 span {
+        #social-good-section .sg-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--fire-orange), transparent);
+        }
+
+        #social-good-section .social-good-text h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        #social-good-section .social-good-text h2 span {
             background: linear-gradient(135deg, var(--fire-gold), var(--fire-orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .reg-info p {
-            font-size: 0.9rem;
-            line-height: 1.8;
-            color: rgba(255, 180, 120, 0.65);
-            margin-bottom: 28px;
+        #social-good-section .impact-point {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 2px solid var(--fire-orange);
         }
 
-        .reg-perks {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        #social-good-section .impact-point.gold {
+            border-left-color: var(--fire-gold);
         }
 
-        .perk {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.85rem;
-            color: rgba(255, 200, 150, 0.8);
-            font-weight: 600;
+        #social-good-section .impact-year {
+            color: var(--fire-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-family: 'Cinzel', serif;
         }
 
-        .perk-icon {
-            font-size: 1.2rem;
-            width: 36px;
-            text-align: center;
+        #social-good-section .impact-copy {
+            color: rgba(255, 180, 120, 0.8);
+            line-height: 1.7;
         }
 
-        .form-card {
-            background: rgba(26, 9, 0, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 100, 0, 0.15);
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        #social-good-section .impact-slideshow-wrap {
             position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 100, 0, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            background: #000;
         }
 
-        .form-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 80, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .form-card::before {
-            content: '';
+        #social-good-section .impact-slide {
             position: absolute;
-            top: 0;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.5s ease-in-out, transform 8s linear;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        #social-good-section .impact-slide.active {
+            opacity: 1;
+            transform: scale(1.02);
+        }
+
+        #social-good-section .impact-info-overlay {
+            position: absolute;
+            bottom: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--fire-red), var(--fire-orange), var(--fire-gold));
-            box-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            z-index: 2;
         }
 
-        .form-toggle {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 24px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 100, 0, 0.12);
-            border-radius: 3px;
-            padding: 4px;
-        }
-
-        .ftbtn {
-            flex: 1;
-            padding: 9px 16px;
-            background: transparent;
-            border: none;
-            color: rgba(255, 150, 80, 0.5);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.78rem;
+        #social-good-section .impact-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--fire-orange);
+            color: #fff;
+            font-size: 0.7rem;
             font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 2px;
-            text-transform: uppercase;
             border-radius: 2px;
-            cursor: none;
-            transition: all 0.3s;
-        }
-
-        .ftbtn.active {
-            background: linear-gradient(135deg, var(--lava), var(--fire-orange));
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 80, 0, 0.4);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-
-        .form-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-size: 0.62rem;
-            letter-spacing: 3px;
-            color: var(--fire-orange);
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .form-input,
-        .form-select {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 100, 0, 0.18);
-            border-radius: 3px;
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 12px 16px;
-            outline: none;
-            transition: all 0.3s;
-            width: 100%;
-            appearance: none;
-        }
-
-        .form-input:focus,
-        .form-select:focus {
-            border-color: rgba(255, 140, 0, 0.5);
-            box-shadow: 0 0 0 3px rgba(255, 100, 0, 0.1);
-            background: rgba(255, 80, 0, 0.06);
-        }
-
-        .form-input::placeholder {
-            color: rgba(255, 150, 80, 0.25);
-        }
-
-        .form-select option {
-            background: #1A0900;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            background: linear-gradient(135deg, #8B0000, #CC1100, #FF4500, #FF8C00);
-            background-size: 200% 200%;
-            animation: gradShift 4s ease infinite;
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            border-radius: 2px;
-            cursor: none;
-            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-            margin-top: 8px;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.4);
-            transition: all 0.3s;
-        }
-
-        .form-submit:hover {
-            box-shadow: 0 0 50px rgba(255, 100, 0, 0.7);
-            transform: translateY(-2px);
-        }
-
-        .success-state {
-            display: none;
-            text-align: center;
-            padding: 30px 0;
-            animation: heroIn 0.5s ease;
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            margin-bottom: 16px;
-        }
-
-        .success-state h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--fire-gold);
             margin-bottom: 10px;
         }
 
-        .success-state p {
-            font-size: 0.85rem;
-            color: rgba(255, 180, 120, 0.7);
-            line-height: 1.7;
+        @media (max-width: 992px) {
+            #social-good-section .social-good-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            #social-good-section .impact-slideshow-wrap {
+                height: 350px;
+            }
+
+            #social-good-section .social-good-text h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #social-good-section {
+                padding: 70px 0;
+            }
+
+            #social-good-section .social-good-grid {
+                gap: 24px;
+            }
+
+            #social-good-section .slideshow-column {
+                order: 1;
+            }
+
+            #social-good-section .social-good-text {
+                order: 2;
+            }
+
+            #social-good-section .social-good-text h2 {
+                font-size: 1.8rem;
+                margin-bottom: 18px;
+                line-height: 1.25;
+            }
+
+            #social-good-section .sg-label {
+                font-size: 0.62rem;
+                letter-spacing: 4px;
+                margin-bottom: 14px;
+                gap: 8px;
+            }
+
+            #social-good-section .impact-slideshow-wrap {
+                height: 240px;
+            }
+
+            #social-good-section .impact-info-overlay {
+                padding: 16px;
+            }
+
+            #social-good-section .impact-badge {
+                font-size: 0.6rem;
+                letter-spacing: 1.5px;
+                margin-bottom: 6px;
+            }
+
+            #social-good-section .impact-point,
+            #social-good-section .impact-point.gold {
+                margin-bottom: 16px;
+                padding: 12px;
+                border-left: none;
+                border: 1px solid rgba(255, 120, 0, 0.25);
+                border-radius: 10px;
+                background: rgba(20, 8, 0, 0.45);
+            }
+
+            #social-good-section .impact-year {
+                font-size: 0.98rem;
+                margin-bottom: 8px;
+            }
+
+            #social-good-section .impact-copy {
+                font-size: 0.86rem;
+                line-height: 1.55;
+            }
         }
 
         /* ═══════════════════════════════════════════
@@ -3792,6 +3795,13 @@
                 margin: 8px 0 4px;
             }
 
+            .hero-eligibility {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+                margin: 0 0 12px;
+                padding: 7px 10px;
+            }
+
             .hero-btns {
                 gap: 10px;
             }
@@ -4104,8 +4114,6 @@
             <a href="#gallery">Gallery</a>
             <a href="#about">About</a>
             <a href="#committee">Contact</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
-                target="_blank" class="nav-register">Register Now</a>
         </div>
         <div class="hamburger" id="hamburger" onclick="toggleNav()">
             <span></span><span></span><span></span>
@@ -4119,8 +4127,6 @@
         <a href="#gallery" onclick="toggleNav()">Gallery</a>
         <a href="#about" onclick="toggleNav()">About</a>
         <a href="#committee" onclick="toggleNav()">Contact</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
-            target="_blank" onclick="toggleNav()" style="color:var(--fire-orange);">🔥 Register</a>
     </div>
 
     <!-- ════════════════════════════════════════
@@ -4178,6 +4184,7 @@
             </div>
 
             <p class="hero-script">Where Culture Blazes Beyond Limits.</p>
+            <p class="hero-eligibility">Open to Arts and Science and Engineering students.</p>
 
             <div class="hero-pills">
                 <div class="pill">
@@ -4198,12 +4205,12 @@
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                     </svg>
-                    Main Campus Auditorium
+                    Main Auditorium, Agni College of Technology
                 </div>
             </div>
 
             <div class="hero-btns" style="margin-top: 15px;">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE_SogJCjuJ__eomkJq5Z7A69EluVq7wDB-UXiVEDcvrKt2A/viewform?usp=header"
                     target="_blank" class="btn-primary">Register Now</a>
                 <a href="#events" class="btn-secondary">Explore Events <span>&rarr;</span></a>
             </div>
@@ -4271,7 +4278,7 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item reveal">
-                    <div class="stat-num" data-target="25">0</div>
+                    <div class="stat-num" data-target="40" data-suffix="+">0</div>
                     <div class="stat-label">Colleges Participating</div>
                 </div>
                 <div class="stat-item reveal" style="transition-delay:0.1s;">
@@ -4283,7 +4290,7 @@
                     <div class="stat-label">Expected Attendees</div>
                 </div>
                 <div class="stat-item reveal" style="transition-delay:0.3s;">
-                    <div class="stat-num" data-target="8">0</div>
+                    <div class="stat-num" data-target="2">0</div>
                     <div class="stat-label">Years of Legacy</div>
                 </div>
             </div>
@@ -4310,6 +4317,11 @@
 
             <!-- OFFLINE EVENTS PANE -->
             <div id="pane-offline" class="events-pane active">
+                <div class="registration-deadline" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.1)); border: 1px solid rgba(255, 102, 0, 0.4); border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; text-align: center;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 1rem; color: var(--fire-gold); letter-spacing: 2px; text-transform: uppercase;">
+                        <span style="margin-right: 8px;"></span>Registration Deadline: <strong>27.03.2026</strong>
+                    </div>
+                </div>
                 <div class="events-accordion">
 
                     <!-- Event 1: Solo Singing -->
@@ -4646,6 +4658,11 @@
                 </div>
             </div>
             <div id="pane-online" class="events-pane">
+                <div class="registration-deadline" style="background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.1)); border: 1px solid rgba(255, 102, 0, 0.4); border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; text-align: center;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 1rem; color: var(--fire-gold); letter-spacing: 2px; text-transform: uppercase;">
+                        Registration Deadline: <strong>23.03.2026</strong>
+                    </div>
+                </div>
                 <div class="events-accordion">
                     <!-- Online Event 1 -->
                     <div class="evt-item theme-a reveal">
@@ -4684,9 +4701,10 @@
                                 <div class="evt-rules-title">Rules & Guidelines</div>
                                 <ul class="evt-rules-list">
                                     <li>Duration: 3–5 minutes only.</li>
+                                    <li>Maximum 7 members per team.</li>
                                     <li>Submit before the deadline via Google Form.</li>
                                     <li>Original content only; no plagiarism.</li>
-                                    <li>Theme will be announced on the event day.</li>
+                                    <li>Theme: Open Theme.</li>
                                 </ul>
                             </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
@@ -4725,9 +4743,10 @@
                             <div class="evt-rules" style="display:none;">
                                 <div class="evt-rules-title">Rules & Guidelines</div>
                                 <ul class="evt-rules-list">
+                                    <li>Maximum 1 member (individual).</li>
                                     <li>Submit before the deadline via Google Form.</li>
                                     <li>Original content only; no offensive material.</li>
-                                    <li>Theme will be announced on the event day.</li>
+                                    <li>Theme: Student Mental Health Nowadays.</li>
                                 </ul>
                             </div>
                             <a href="https://docs.google.com/forms/d/e/1FAIpQLScuICfjEROUiBfH5lsvRm-wyoojjXpUFpYobnwhg3Ficpzkag/viewform?usp=publish-editor"
@@ -4755,7 +4774,7 @@
                             </div>
                             <div class="evt-fee-box">
                                 <div class="evt-fee-label">Registration</div>
-                                <div class="evt-fee">₹100</div>
+                                <div class="evt-fee">₹50</div>
                             </div>
                         </div>
                         <div class="evt-body">
@@ -4767,6 +4786,7 @@
                             <div class="evt-rules" style="display:none;">
                                 <div class="evt-rules-title">Rules & Guidelines</div>
                                 <ul class="evt-rules-list">
+                                    <li>Maximum 1 member (individual).</li>
                                     <li>Standard FIDE rules apply.</li>
                                     <li>Blitz format: 5 minutes per player.</li>
                                     <li>Registration mandatory before tournament.</li>
@@ -4808,9 +4828,10 @@
                             <div class="evt-rules" style="display:none;">
                                 <div class="evt-rules-title">Rules & Guidelines</div>
                                 <ul class="evt-rules-list">
+                                    <li>Maximum 1 member (individual).</li>
                                     <li>Submit original photographs only.</li>
                                     <li>Basic editing allowed; no heavy manipulation.</li>
-                                    <li>Theme will be announced on the event day.</li>
+                                    <li>Theme: Namma Chennai.</li>
                                     <li>Submit before the deadline via Google Form.</li>
                                 </ul>
                             </div>
@@ -5053,60 +5074,32 @@
     <div class="fire-divider"></div>
 
     <!-- ════════════════════════════════════════
-     REGISTER
+     DRIVEN BY SOCIAL GOOD
 ════════════════════════════════════════ -->
-    <section id="register">
+    <section id="social-good-section">
         <div class="container section-pad">
-            <div class="sec-head reveal">
-                <div class="sec-label">Join the Blaze</div>
-                <h2 class="sec-title">Register <span>Now</span></h2>
-                <div class="sec-line"></div>
-            </div>
-            <div class="reg-wrap">
-                <div class="reg-info reveal-left">
-                    <h3>Agniverse 2026</h3>
+            <div class="social-good-grid">
+                <div class="social-good-text reveal-left">
+                    <div class="sg-label">Our Purpose</div>
+                    <h2>Driven by <span>Social Good</span></h2>
 
-                    <p>Register now and compete against the best college talent from across the region. 6 events, 1
-                        blazing
-                        championship day.</p>
-                    <div class="reg-perks">
-                        <div class="perk">
-                            <div class="perk-icon">🔥</div> Nominal entry fee for events
-                        </div>
-                        <div class="perk">
-                            <div class="perk-icon">🏆</div> ₹1,00,000+ total prize pool
-                        </div>
-                        <div class="perk">
-                            <div class="perk-icon">🎟️</div> Complimentary entry to all shows
-                        </div>
-                        <div class="perk">
-                            <div class="perk-icon">🍽️</div> Meals included for participants
-                        </div>
-                        <div class="perk">
-                            <div class="perk-icon">📜</div> Certificate of participation
-                        </div>
-                        <div class="perk">
-                            <div class="perk-icon">🌟</div> Networking with 25+ colleges
-                        </div>
+                    <div class="impact-point">
+                        <div class="impact-year">AGNIVERSE 2024</div>
+                        <p class="impact-copy">AGNIVERSE 2024 was not only a celebration of culture and creativity but also a meaningful step towards social responsibility. The team donated Rs.25,000 to the Children's Cancer Institute, supporting children battling cancer and their families.</p>
+                    </div>
+
+                    <div class="impact-point gold">
+                        <div class="impact-year">AGNIVERSE 2025</div>
+                        <p class="impact-copy">Building on our commitment, AGNIVERSE 2025 donated Rs.25,000 to Pathway India and an additional Rs.25,000 to an All Children NGO. We believe cultural platforms should serve as powerful mediums for compassion and inclusion.</p>
                     </div>
                 </div>
-                <div class="reveal-right">
-                    <div class="form-card"
-                        style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px;">
-                        <div
-                            style="font-size: 4rem; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 100, 0, 0.5);">
-                            🔥</div>
 
-                        <p
-                            style="color: rgba(255, 255, 255, 0.8); margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6;">
-                            Registration is exclusively processed through our official Google Form. Spaces are limited,
-                            so reserve
-                            your entry today.</p>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
-                            target="_blank"
-                            style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: linear-gradient(135deg, var(--lava), var(--fire-orange)); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; text-decoration: none; cursor: none; box-shadow: 0 10px 30px rgba(255, 69, 0, 0.4); transition: transform 0.3s, box-shadow 0.3s;">
-                            Register Now →
-                        </a>
+                <div class="slideshow-column reveal-right">
+                    <div class="impact-slideshow-wrap" id="impactSlideshow">
+                        <div class="impact-info-overlay">
+                            <div class="impact-badge">Agniverse Care</div>
+                            <div style="font-size: 1.2rem; font-weight: 600; color: #fff;">Empowering Lives Through Unity</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -5127,7 +5120,7 @@
                     <p>Since its inception in 2018, Agniverse has set the benchmark for collegiate cultural festivals
                         across the region. What started as an inter-departmental showcase has erupted into a massive
                         convergence of art, music, dance, and expression.</p>
-                    <p>Every year, over 5,000 students from 25+ colleges gather to witness and participate in the
+                    <p>Every year, over 5,000 students from 40+ colleges gather to witness and participate in the
                         fiercely competitive events. We believe in providing a state-of-the-art platform where raw
                         talent is forged into undeniable skill, and where the culture of the future is born.</p>
                 </div>
@@ -5142,6 +5135,7 @@
                                 Who can participate? <span class="faq-arrow">▾</span>
                             </button>
                             <div class="faq-a">Any student currently enrolled in a college or university is eligible.
+                                Students from Arts and Science colleges and Engineering colleges are welcome to participate.
                                 Both solo and team entries are welcome depending on the event category.</div>
                         </div>
                         <div class="faq-item">
@@ -5324,7 +5318,8 @@
                     <div class="footer-col-title">Contact</div>
                     <div class="footer-links">
                         <a href="mailto:agniverse2026@gmail.com">agniverse2026@gmail.com</a>
-                        <a href="tel:+918754083963">+91 87540 83963</a>
+                        <a href="tel:+919360187149">Akash (Student Coordinator): +91 93601 87149</a>
+                        <a href="tel:+918122147141">Lekha (Student Coordinator): +91 81221 47141</a>
                         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
                             <div
                                 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--fire-gold); margin-bottom: 8px;">
@@ -5357,45 +5352,58 @@
         const dot = document.getElementById('cur-dot');
         const ring = document.getElementById('cur-ring');
         const glow = document.getElementById('cur-glow');
+        const enableCustomCursor = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
         let mx = window.innerWidth / 2, my = window.innerHeight / 2;
         let rx = mx, ry = my, gx = mx, gy = my, rotation = 0;
 
-        // Disable default cursor across the entire robust UI layer smoothly
-        if (!window.matchMedia("(pointer: coarse)").matches) {
+        // Keep custom cursor desktop-only
+        if (enableCustomCursor) {
             document.documentElement.style.cursor = 'none';
+        } else {
+            document.documentElement.style.cursor = '';
+            document.body.style.cursor = '';
+            [dot, ring, glow].forEach(el => {
+                if (el) {
+                    el.style.display = 'none';
+                }
+            });
         }
 
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX;
-            my = e.clientY;
-            // The dot snaps instantly for highest response feedback
-            // Wait until first frame sets it
-        });
+        if (enableCustomCursor) {
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX;
+                my = e.clientY;
+                // The dot snaps instantly for highest response feedback
+                // Wait until first frame sets it
+            });
+        }
 
         // Add class rotation mechanism to avoid inline transform conflicts
         // but for now we'll inject rotation via js
 
-        (function animCursor() {
-            // Much higher interpolation value (0.35) for faster tracking ring
-            rx += (mx - rx) * 0.35;
-            ry += (my - ry) * 0.35;
+        if (enableCustomCursor && dot && ring && glow) {
+            (function animCursor() {
+                // Much higher interpolation value (0.35) for faster tracking ring
+                rx += (mx - rx) * 0.35;
+                ry += (my - ry) * 0.35;
 
-            // Continuous slow 3D rotation of the outer hexagonal/diamond ring
-            rotation += 0.5;
+                // Continuous slow 3D rotation of the outer hexagonal/diamond ring
+                rotation += 0.5;
 
-            // Check if we are hovering something interactive for dot rotation
-            let dotRotation = document.body.querySelector('a:hover, button:hover, .form-input:hover, .faq-q:hover') ? 90 : 45;
+                // Check if we are hovering something interactive for dot rotation
+                let dotRotation = document.body.querySelector('a:hover, button:hover, .form-input:hover, .faq-q:hover') ? 90 : 45;
 
-            dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%) rotate(${dotRotation}deg)`;
-            ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%) rotate(${rotation}deg)`;
-            glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%, -50%)`;
+                dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%) rotate(${dotRotation}deg)`;
+                ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%) rotate(${rotation}deg)`;
+                glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%, -50%)`;
 
-            // Glow trails slightly behind for smooth ambiance
-            gx += (mx - gx) * 0.15;
-            gy += (my - gy) * 0.15;
+                // Glow trails slightly behind for smooth ambiance
+                gx += (mx - gx) * 0.15;
+                gy += (my - gy) * 0.15;
 
-            requestAnimationFrame(animCursor);
-        })();
+                requestAnimationFrame(animCursor);
+            })();
+        }
 
         /* ── PRELOADER — 3D LETTER ASSEMBLY ── */
         window.addEventListener('load', () => {
@@ -5817,7 +5825,7 @@
         /* ── STATS COUNTER ── */
         function countUp(el) {
             const target = parseInt(el.dataset.target);
-            const suffix = target >= 1000 ? '+' : '';
+            const suffix = el.dataset.suffix || (target >= 1000 ? '+' : '');
             const dur = 1800; const step = dur / 60;
             let cur = 0;
             const timer = setInterval(() => {
@@ -6056,6 +6064,35 @@
                 }
             });
         })();
+
+        (function initImpactSlideshow() {
+            const container = document.getElementById('impactSlideshow');
+            if (!container) return;
+
+            const images = [
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.17 PM.jpeg',
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.19 PM.jpeg',
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.22 PM.jpeg'
+            ];
+
+            images.forEach((src, i) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'impact-slide' + (i === 0 ? ' active' : '');
+                container.prepend(img);
+            });
+
+            let current = 0;
+            const slides = container.querySelectorAll('.impact-slide');
+
+            setInterval(() => {
+                if (slides.length === 0) return;
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 5000);
+        })();
+
         (function init3DTilt() {
             const tiltElements = document.querySelectorAll('.stat-item, .evt-item, .tl-card, .form-card, .team-card, .faq-item');
             if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -6084,7 +6121,7 @@
             });
         })();
     </script>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScfM2WXxv4F6bXpVr6heW0hoak9ZA6Q7dhLeDrZfmqFjEbP_w/viewform?usp=publish-editor"
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE_SogJCjuJ__eomkJq5Z7A69EluVq7wDB-UXiVEDcvrKt2A/viewform?usp=header"
         target="_blank" class="floating-reg-btn">
         🔥 Register Now
     </a>
