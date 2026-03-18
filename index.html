@@ -2574,16 +2574,18 @@
             position: absolute;
             inset: 0;
             opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 1.5s ease-in-out, transform 8s linear;
+            transform: scale(1.06);
+            transition: opacity 1.1s ease-in-out, transform 6s ease;
             object-fit: cover;
+            object-position: center center;
             width: 100%;
             height: 100%;
+            filter: saturate(1.03) contrast(1.04);
         }
 
         #social-good-section .impact-slide.active {
             opacity: 1;
-            transform: scale(1.02);
+            transform: scale(1);
         }
 
         #social-good-section .impact-info-overlay {
@@ -4253,7 +4255,7 @@
 ════════════════════════════════════════ -->
     <section id="countdown">
         <div class="container">
-            <div class="cd-title reveal"><span class="cd-fire-emoji">🔥</span> The Flame Ignites In <span
+            <div class="cd-title reveal">🔥<span class="cd-fire-emoji"></span> The Flame Ignites In <span
                     class="cd-fire-emoji">🔥</span></div>
             <div class="countdown-grid reveal">
                 <div class="cd-unit">
@@ -5071,31 +5073,6 @@
     <div class="fire-divider"></div>
 
     <!-- ════════════════════════════════════════
-     GALLERY
-════════════════════════════════════════ -->
-    <section id="gallery">
-        <div class="container">
-            <div class="sec-head reveal">
-                <div class="sec-label">Memories in Flame</div>
-                <h2 class="sec-title">Past <span>Gallery</span></h2>
-                <div class="sec-line"></div>
-            </div>
-        </div>
-
-        <div class="gallery-track-container" id="gallery-container">
-            <div class="gallery-track" id="gallery-track"></div>
-        </div>
-
-        <div class="gallery-scroll-hint reveal">
-            <span class="g-arrow left">←</span>
-            <span>Drag or Scroll to Explore</span>
-            <span class="g-arrow right">→</span>
-        </div>
-    </section>
-
-    <div class="fire-divider"></div>
-
-    <!-- ════════════════════════════════════════
      DRIVEN BY SOCIAL GOOD
 ════════════════════════════════════════ -->
     <section id="social-good-section">
@@ -5125,6 +5102,31 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <div class="fire-divider"></div>
+
+    <!-- ════════════════════════════════════════
+     GALLERY
+════════════════════════════════════════ -->
+    <section id="gallery">
+        <div class="container">
+            <div class="sec-head reveal">
+                <div class="sec-label">Memories in Flame</div>
+                <h2 class="sec-title">Past <span>Gallery</span></h2>
+                <div class="sec-line"></div>
+            </div>
+        </div>
+
+        <div class="gallery-track-container" id="gallery-container">
+            <div class="gallery-track" id="gallery-track"></div>
+        </div>
+
+        <div class="gallery-scroll-hint reveal">
+            <span class="g-arrow left">←</span>
+            <span>Drag or Scroll to Explore</span>
+            <span class="g-arrow right">→</span>
         </div>
     </section>
 
@@ -5726,6 +5728,8 @@
             const track = document.getElementById('gallery-track');
             const container = document.getElementById('gallery-container');
 
+            if (!track || !container) return;
+
             const data = [
                 { h: 420, label: 'Agniverse Moments', year: '2025', imgSrc: 'gallery/SCB_2236.JPG.jpeg', pos: 'center' },
                 { h: 420, label: 'Cultural Vibes', year: '2025', imgSrc: 'gallery/SCB_2267.JPG.jpeg', pos: 'center' },
@@ -5770,6 +5774,74 @@
             });
 
             const items = Array.from(document.querySelectorAll('.g-item'));
+            let activeIndex = 0;
+            let autoSlideTimer = null;
+            let autoResumeTimer = null;
+            const AUTO_SLIDE_MS = 3200;
+
+            function clamp(val, min, max) {
+                return Math.min(Math.max(val, min), max);
+            }
+
+            function getTargetScrollLeft(index) {
+                if (!items.length) return 0;
+                const item = items[clamp(index, 0, items.length - 1)];
+                const centeredLeft = item.offsetLeft - ((container.clientWidth - item.clientWidth) / 2);
+                return clamp(centeredLeft, 0, Math.max(0, container.scrollWidth - container.clientWidth));
+            }
+
+            function scrollToIndex(index, smooth = true) {
+                if (!items.length) return;
+                activeIndex = ((index % items.length) + items.length) % items.length;
+                container.scrollTo({
+                    left: getTargetScrollLeft(activeIndex),
+                    behavior: smooth ? 'smooth' : 'auto'
+                });
+                window.requestAnimationFrame(updateGallery);
+            }
+
+            function updateActiveIndexFromScroll() {
+                if (!items.length) return;
+                const center = container.scrollLeft + (container.clientWidth / 2);
+                let nearest = 0;
+                let nearestDist = Number.POSITIVE_INFINITY;
+
+                items.forEach((item, idx) => {
+                    const itemCenter = item.offsetLeft + (item.clientWidth / 2);
+                    const dist = Math.abs(itemCenter - center);
+                    if (dist < nearestDist) {
+                        nearestDist = dist;
+                        nearest = idx;
+                    }
+                });
+
+                activeIndex = nearest;
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideTimer) {
+                    clearInterval(autoSlideTimer);
+                    autoSlideTimer = null;
+                }
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide();
+                if (items.length <= 1) return;
+
+                autoSlideTimer = setInterval(() => {
+                    scrollToIndex(activeIndex + 1);
+                }, AUTO_SLIDE_MS);
+            }
+
+            function pauseAndResumeAutoSlide(delay = AUTO_SLIDE_MS + 1000) {
+                stopAutoSlide();
+                if (autoResumeTimer) clearTimeout(autoResumeTimer);
+                autoResumeTimer = setTimeout(() => {
+                    updateActiveIndexFromScroll();
+                    startAutoSlide();
+                }, delay);
+            }
 
             // Update 3D classes based on scroll position
             function updateGallery() {
@@ -5802,13 +5874,35 @@
 
             // Initial update and listeners
             setTimeout(() => {
-                container.scrollLeft = 1; // trigger layout
+                scrollToIndex(0, false);
                 updateGallery();
+                startAutoSlide();
             }, 100);
 
             container.addEventListener('scroll', () => {
+                updateActiveIndexFromScroll();
                 window.requestAnimationFrame(updateGallery);
             });
+
+            container.addEventListener('mouseenter', () => {
+                stopAutoSlide();
+            });
+
+            container.addEventListener('mouseleave', () => {
+                pauseAndResumeAutoSlide(800);
+            });
+
+            container.addEventListener('touchstart', () => {
+                stopAutoSlide();
+            }, { passive: true });
+
+            container.addEventListener('touchend', () => {
+                pauseAndResumeAutoSlide();
+            }, { passive: true });
+
+            container.addEventListener('wheel', () => {
+                pauseAndResumeAutoSlide();
+            }, { passive: true });
 
             // Drag to scroll functionality
             let isDragging = false;
@@ -5817,6 +5911,7 @@
 
             container.addEventListener('mousedown', (e) => {
                 isDragging = true;
+                stopAutoSlide();
                 container.style.cursor = 'grabbing';
                 startX = e.pageX - container.offsetLeft;
                 scrollLeft = container.scrollLeft;
@@ -5830,6 +5925,7 @@
             container.addEventListener('mouseup', () => {
                 isDragging = false;
                 container.style.cursor = 'none';
+                pauseAndResumeAutoSlide();
             });
 
             container.addEventListener('mousemove', (e) => {
@@ -5838,6 +5934,10 @@
                 const x = e.pageX - container.offsetLeft;
                 const walk = (x - startX) * 2; // scroll-fast multiplier
                 container.scrollLeft = scrollLeft - walk;
+            });
+
+            window.addEventListener('resize', () => {
+                scrollToIndex(activeIndex, false);
             });
 
         })();
@@ -6092,25 +6192,39 @@
             const images = [
                 'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.17 PM.jpeg',
                 'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.19 PM.jpeg',
-                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.22 PM.jpeg'
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.22 PM.jpeg',
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.25 PM.jpeg',
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.27 PM.jpeg',
+                'ORPHANAGE/WhatsApp Image 2026-03-13 at 10.36.42 PM.jpeg'
             ];
 
-            images.forEach((src, i) => {
+            const loadedSlides = [];
+            images.forEach((src) => {
                 const img = document.createElement('img');
+                img.className = 'impact-slide';
+                img.alt = 'Agniverse orphanage outreach photo';
+                img.decoding = 'async';
+                img.loading = 'lazy';
+                img.addEventListener('load', () => {
+                    loadedSlides.push(img);
+                    if (loadedSlides.length === 1) {
+                        img.classList.add('active');
+                    }
+                });
+                img.addEventListener('error', () => {
+                    img.remove();
+                });
                 img.src = src;
-                img.className = 'impact-slide' + (i === 0 ? ' active' : '');
                 container.prepend(img);
             });
 
             let current = 0;
-            const slides = container.querySelectorAll('.impact-slide');
-
             setInterval(() => {
-                if (slides.length === 0) return;
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 5000);
+                if (loadedSlides.length < 2) return;
+                loadedSlides[current].classList.remove('active');
+                current = (current + 1) % loadedSlides.length;
+                loadedSlides[current].classList.add('active');
+            }, 4000);
         })();
 
         (function init3DTilt() {
@@ -6143,7 +6257,7 @@
     </script>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE_SogJCjuJ__eomkJq5Z7A69EluVq7wDB-UXiVEDcvrKt2A/viewform?usp=header"
         target="_blank" class="floating-reg-btn">
-        🔥 Register Now
+         🔥Register Now
     </a>
 </body>
 
